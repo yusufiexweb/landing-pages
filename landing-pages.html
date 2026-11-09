@@ -1,0 +1,1410 @@
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" data-theme="red">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#030305">
+<title>NOVA333X // Landing Pages & Cinematic Matrix</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+--accent-color: #ff3333;
+--accent-glow: rgba(255, 51, 51, 0.4);
+--bg-base: #030305;
+--archival-border: rgba(255, 51, 51, 0.3);
+}
+
+[data-theme="purple"] {
+--accent-color: #a855f7;
+--accent-glow: rgba(168, 85, 247, 0.4);
+--archival-border: rgba(168, 85, 247, 0.3);
+}
+
+[data-theme="emerald"] {
+--accent-color: #10b981;
+--accent-glow: rgba(16, 185, 129, 0.4);
+--archival-border: rgba(16, 185, 129, 0.3);
+}
+
+[data-theme="blue"] {
+--accent-color: #3b82f6;
+--accent-glow: rgba(59, 130, 246, 0.4);
+--archival-border: rgba(59, 130, 246, 0.3);
+}
+
+* {
+box-sizing: border-box;
+}
+
+html {
+scroll-behavior: smooth;
+overflow-x: hidden;
+}
+
+body {
+font-family: 'Space Grotesk', sans-serif;
+background-color: var(--bg-base);
+color: #ededed;
+overflow-x: hidden;
+min-width: 320px;
+cursor: auto;
+transition: background-color 0.4s ease;
+}
+
+button, a, select {
+cursor: pointer;
+}
+
+input, textarea {
+cursor: text;
+}
+
+.mono-text {
+font-family: 'JetBrains Mono', monospace;
+font-size: 16px;
+}
+
+.archival-noise {
+position: fixed;
+inset: 0;
+z-index: -1;
+background:
+radial-gradient(circle at 50% 50%, var(--accent-glow) 0%, transparent 65%),
+linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%);
+background-size: 100% 4px;
+pointer-events: none;
+}
+
+@keyframes cinematicFly {
+0% {
+transform: scale(1.2) translateY(30px);
+opacity: 0;
+filter: blur(10px);
+}
+50% {
+opacity: 0.8;
+filter: blur(0);
+}
+100% {
+transform: scale(1) translateY(0);
+opacity: 0.55;
+}
+}
+
+.cinematic-bg-video {
+position: absolute;
+inset: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+animation: cinematicFly 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+filter: contrast(130%) brightness(60%) saturate(120%);
+}
+
+@keyframes glowingEyes {
+0%, 100% {
+box-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+opacity: 0.8;
+}
+50% {
+box-shadow: 0 0 20px var(--accent-color), 0 0 35px var(--accent-color);
+opacity: 1;
+transform: scale(1.2);
+}
+}
+
+.glow-eye-1,
+.glow-eye-2 {
+position: absolute;
+width: 8px;
+height: 8px;
+background: #fff;
+border-radius: 50%;
+animation: glowingEyes 1.5s infinite ease-in-out;
+z-index: 5;
+}
+
+.dropdown-menu {
+opacity: 0;
+pointer-events: none;
+transform: translateY(12px) skewX(-2deg);
+transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .dropdown-menu,
+.group:focus-within .dropdown-menu {
+opacity: 1;
+pointer-events: auto;
+transform: translateY(0) skewX(0);
+}
+
+.archival-card {
+background: #08080c;
+border: 2px solid var(--archival-border);
+position: relative;
+min-width: 0;
+transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6);
+}
+
+.archival-card::before {
+content: attr(data-index);
+position: absolute;
+top: -12px;
+left: 16px;
+background: #030305;
+padding: 0 8px;
+font-family: 'JetBrains Mono', monospace;
+font-size: 10px;
+color: var(--accent-color);
+border: 1px solid var(--archival-border);
+}
+
+.archival-card:hover {
+transform: translate(-4px, -4px);
+border-color: var(--accent-color);
+box-shadow: 10px 10px 0 var(--accent-color);
+}
+
+.theme-btn {
+width: 14px;
+height: 14px;
+flex-shrink: 0;
+border-radius: 50%;
+cursor: pointer;
+transition: transform 0.2s;
+}
+
+.theme-btn:hover {
+transform: scale(1.3);
+}
+
+.modal-active {
+opacity: 1 !important;
+pointer-events: auto !important;
+}
+
+#mobileMenu {
+display: none;
+}
+
+#mobileMenu.active {
+display: block;
+animation: menuReveal 0.3s ease forwards;
+}
+
+@keyframes menuReveal {
+from {
+opacity: 0;
+transform: translateY(-10px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+#mobileMenu a,
+#mobileMenu summary {
+color: #ededed;
+transition: color 0.2s ease;
+}
+
+#mobileMenu a:hover,
+#mobileMenu summary:hover {
+color: var(--accent-color);
+}
+
+#mobileMenu summary {
+cursor: pointer;
+list-style: none;
+}
+
+#mobileMenu summary::-webkit-details-marker {
+display: none;
+}
+
+#mobileMenu details[open] summary {
+color: var(--accent-color);
+}
+
+::-webkit-scrollbar {
+width: 6px;
+}
+
+::-webkit-scrollbar-track {
+background: #030305;
+}
+
+::-webkit-scrollbar-thumb {
+background: var(--accent-color);
+}
+
+img, video, iframe {
+max-width: 100%;
+}
+
+/* TABLET */
+@media (max-width: 1024px) {
+header {
+padding: 14px 20px;
+}
+
+.archival-card {
+padding: 22px;
+}
+
+#core-services,
+#workspace-hub {
+padding-top: 65px;
+padding-bottom: 65px;
+}
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+body {
+overflow-x: hidden;
+}
+
+header {
+min-height: 66px;
+padding: 12px 16px;
+}
+
+header > a {
+flex-shrink: 0;
+}
+
+header > div {
+gap: 10px;
+}
+
+header button#openContactModal {
+padding: 9px 13px;
+font-size: 10px;
+box-shadow: 2px 2px 0 #fff;
+}
+
+#mobileMenu {
+position: fixed;
+top: 66px;
+left: 0;
+width: 100%;
+z-index: 49;
+background: #030305;
+border-bottom: 2px solid var(--accent-color);
+padding: 22px 24px;
+max-height: calc(100vh - 66px);
+overflow-y: auto;
+}
+
+#mobileMenu nav {
+display: flex;
+flex-direction: column;
+gap: 20px;
+font-size: 12px;
+}
+
+#mobileMenu details > div {
+display: flex;
+flex-direction: column;
+gap: 14px;
+padding: 14px 0 0 16px;
+font-size: 11px;
+}
+
+section.pt-36 {
+padding: 120px 18px 45px;
+}
+
+section.pt-36 h1 {
+font-size: clamp(32px, 7.5vw, 52px);
+line-height: 1.12;
+}
+
+section.pt-36 > div:first-child {
+max-width: 100%;
+font-size: 9px;
+line-height: 1.7;
+}
+
+section.pt-36 p {
+font-size: 10px;
+line-height: 1.8;
+padding: 0 5px;
+margin-bottom: 35px;
+}
+
+section.pt-36 > div.flex {
+gap: 16px;
+flex-wrap: wrap;
+margin-bottom: 35px;
+}
+
+section.pt-36 > div.flex > div {
+padding: 14px 18px;
+min-width: 125px;
+}
+
+#interactive-preview {
+padding: 30px 18px;
+}
+
+#interactive-preview > div {
+padding: 16px;
+box-shadow: 6px 6px 0 var(--accent-color);
+}
+
+#interactive-preview > div > div:first-child {
+align-items: flex-start;
+}
+
+#interactive-preview .code-tab {
+padding: 8px 10px;
+font-size: 10px;
+}
+
+.code-content {
+font-size: 10px;
+overflow-x: auto;
+max-width: 100%;
+}
+
+.code-content code {
+min-width: max-content;
+display: block;
+}
+
+section h2 {
+font-size: clamp(27px, 6vw, 42px);
+line-height: 1.2;
+}
+
+#core-services,
+#workspace-hub {
+padding: 60px 18px;
+}
+
+.archival-card {
+padding: 22px 18px;
+margin-bottom: 8px;
+box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+}
+
+.archival-card:hover {
+transform: translateY(-3px);
+box-shadow: 5px 5px 0 var(--accent-color);
+}
+
+.archival-card h3 {
+font-size: 18px;
+line-height: 1.3;
+}
+
+.archival-card p {
+line-height: 1.8;
+}
+
+#workspace-hub .grid {
+grid-template-columns: 1fr;
+}
+
+#workspace-hub .archival-card {
+min-width: 0;
+padding: 22px 18px;
+}
+
+#workspace-hub .archival-card .flex.justify-between {
+gap: 12px;
+}
+
+section.py-20.text-center > div {
+padding: 30px 18px;
+box-shadow: 6px 6px 0 var(--accent-color);
+}
+
+section.py-20.text-center h2 {
+font-size: clamp(26px, 6vw, 40px);
+}
+
+section.py-20.text-center button {
+width: 100%;
+padding: 15px 12px;
+font-size: 10px;
+}
+
+footer {
+padding: 45px 18px;
+}
+
+footer > div {
+gap: 25px;
+align-items: flex-start;
+}
+
+footer .flex {
+flex-wrap: wrap;
+gap: 16px;
+}
+
+footer > div > div:last-child {
+font-size: 10px;
+line-height: 1.8;
+}
+
+#intakeModal {
+padding: 12px;
+align-items: flex-start;
+overflow-y: auto;
+}
+
+#intakeModal > div {
+padding: 24px 16px;
+margin: 15px 0;
+max-height: calc(100vh - 30px);
+width: 100%;
+overflow-y: auto;
+}
+
+#intakeModal h3 {
+font-size: 21px;
+padding-right: 20px;
+line-height: 1.3;
+}
+
+#intakeForm input,
+#intakeForm select,
+#intakeForm textarea {
+font-size: 14px;
+min-width: 0;
+}
+
+#intakeForm button {
+font-size: 10px;
+padding: 14px 8px;
+}
+
+#preloader {
+padding: 20px;
+}
+
+#preloader h1 {
+font-size: clamp(40px, 11vw, 65px);
+}
+
+#preloader .mono-text {
+letter-spacing: 2px;
+}
+}
+
+/* SMALL MOBILE */
+@media (max-width: 480px) {
+header {
+padding: 10px 12px;
+}
+
+header .font-extrabold {
+font-size: 15px;
+}
+
+header button#openContactModal {
+padding: 8px 10px;
+font-size: 9px;
+}
+
+#mobileMenu {
+padding: 20px 18px;
+}
+
+section.pt-36 h1 {
+font-size: 34px;
+}
+
+section.pt-36 > div.flex > div {
+padding: 12px;
+min-width: 115px;
+}
+
+.archival-card h3 {
+font-size: 17px;
+}
+
+.mono-text {
+font-size: 11px;
+}
+
+#interactive-preview .flex.gap-2 {
+flex-wrap: wrap;
+gap: 6px;
+}
+
+#interactive-preview .code-tab {
+padding: 7px 9px;
+font-size: 9px;
+}
+
+#intakeModal > div {
+padding: 22px 14px;
+}
+
+#intakeForm .flex.gap-2 {
+flex-direction: column;
+}
+
+#fillAccountBtn {
+padding: 12px;
+}
+}
+
+/* VERY SMALL MOBILE */
+@media (max-width: 360px) {
+header {
+padding-left: 9px;
+padding-right: 9px;
+}
+
+header .font-extrabold {
+font-size: 13px;
+}
+
+header button#openContactModal {
+padding: 7px 8px;
+font-size: 8px;
+}
+
+#mobileMenuBtn {
+font-size: 17px;
+}
+
+section.pt-36 h1 {
+font-size: 29px;
+}
+
+#preloader h1 {
+font-size: 36px;
+}
+
+.code-tab {
+padding: 7px;
+font-size: 9px;
+}
+
+.archival-card,
+#workspace-hub .archival-card {
+padding: 18px 14px;
+}
+}
+
+@media (hover: none) {
+.archival-card:hover {
+transform: none;
+box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.6);
+}
+
+.theme-btn:hover {
+transform: none;
+}
+
+.dropdown-menu {
+display: none;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+*,
+*::before,
+*::after {
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+scroll-behavior: auto !important;
+transition-duration: 0.01ms !important;
+}
+}
+</style>
+</head>
+
+<body class="selection:bg-red-600 selection:text-white">
+
+<div class="archival-noise"></div>
+
+<!-- PRELOADER -->
+<div id="preloader" class="fixed inset-0 bg-[#030305] z-[100000] flex flex-col justify-between p-8 md:p-16 transition-all duration-700 select-none overflow-hidden">
+
+<div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+<div class="glow-eye-1" style="top: 38%; left: 48%;"></div>
+<div class="glow-eye-2" style="top: 38%; left: 51%;"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#030305] via-black/40 to-[#030305]"></div>
+</div>
+
+<div class="flex justify-between items-center mono-text text-xs text-[var(--accent-color)] uppercase tracking-widest border-b-2 border-[#222] pb-4 relative z-10">
+<span class="animate-pulse flex items-center gap-2">
+<i class="fa-solid fa-crow text-white"></i>
+[CINEMATIC WILDLIFE MATRIX: 5s]
+</span>
+<span>OWL &amp; CROW: ACTIVE</span>
+</div>
+
+<div class="my-auto relative z-10 text-center flex flex-col items-center justify-center">
+<h1 class="font-['Syne'] text-4xl sm:text-5xl md:text-6xl font-extrabold text-white uppercase tracking-tighter mb-4 drop-shadow-[0_0_35px_var(--accent-glow)]">
+NOVA<span class="text-[var(--accent-color)]">333</span>X
+</h1>
+
+
+<div class="mono-text text-3xl font-extrabold text-[var(--accent-color)] tracking-[0.2em] mb-4" id="preloaderCounter">00%</div>
+
+<div class="w-64 max-w-full h-1.5 bg-[#111] border border-[#333] relative overflow-hidden rounded-full">
+<div id="preloaderBar" class="h-full bg-[var(--accent-color)] transition-all duration-75 shadow-[0_0_15px_var(--accent-color)]" style="width: 0%;"></div>
+</div>
+
+<p class="mono-text text-[10px] text-zinc-300 uppercase mt-4 tracking-widest" id="preloaderStatus">
+Cinematic Wildlife Loading...
+</p>
+</div>
+
+<div class="flex justify-between items-end mono-text text-xs text-zinc-400 uppercase border-t-2 border-[#222] pt-4 relative z-10">
+<span>LANDING PAGES MATRIX</span>
+<span class="text-white">EYES GLOW MATRIX</span>
+</div>
+</div>
+
+<!-- NAVBAR -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#030305]/95 border-b-2 border-[#222] px-6 py-4 flex justify-between items-center backdrop-blur-md">
+
+<a href="#" class="flex items-center gap-3">
+<span class="font-['Syne'] font-extrabold text-xl tracking-tighter text-white uppercase">
+NOVA333X<span class="text-[var(--accent-color)]">.</span>
+</span>
+</a>
+
+<div class="flex items-center gap-6 text-xs uppercase tracking-widest font-mono font-bold">
+
+<nav class="hidden lg:flex gap-6 text-zinc-400 items-center">
+
+<a href="index.html" class="hover:text-white transition">Home</a>
+
+<div class="relative group py-2">
+<button type="button" class="hover:text-white transition flex items-center gap-1">
+Services <i class="fa-solid fa-chevron-down text-[9px]"></i>
+</button>
+
+<div class="dropdown-menu absolute top-full left-0 bg-[#08080c] border-2 border-[var(--accent-color)] p-4 w-56 shadow-[6px_6px_0px_var(--accent-color)] space-y-2">
+<a href="frontend.html" class="block text-zinc-300 hover:text-[var(--accent-color)] transition py-1">Frontend Development</a>
+<a href="responsive.html" class="block text-zinc-300 hover:text-[var(--accent-color)] transition py-1">Responsive Design</a>
+<a href="landing-pages.html" class="block text-zinc-300 hover:text-[var(--accent-color)] transition py-1">Landing Pages</a>
+<a href="e-commerce-websites.html" class="block text-white font-bold py-1 border-t border-zinc-800 pt-1 text-[var(--accent-color)]">E-Commerce Web Sites</a>
+</div>
+</div>
+
+<div class="relative group py-2">
+<button type="button" class="text-white border-b-2 border-[var(--accent-color)] pb-0.5 transition flex items-center gap-1">
+Projects <i class="fa-solid fa-chevron-down text-[9px]"></i>
+</button>
+
+<div class="dropdown-menu absolute top-full left-0 bg-[#08080c] border-2 border-[var(--accent-color)] p-4 w-48 shadow-[6px_6px_0px_var(--accent-color)] space-y-2">
+<a href="all-projects.html" class="block text-white font-bold py-1">All Projects</a>
+<a href="case-studies.html" class="block text-zinc-300 hover:text-[var(--accent-color)] transition py-1">Case Studies</a>
+</div>
+</div>
+
+<a href="skills.html" class="hover:text-white transition">Skills</a>
+</nav>
+
+<div class="flex items-center gap-3">
+
+<div class="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-black border border-[#333] rounded-full mr-2">
+<button type="button" class="theme-btn bg-red-600" data-set-theme="red" title="Cyber Red" aria-label="Cyber Red theme"></button>
+<button type="button" class="theme-btn bg-purple-500" data-set-theme="purple" title="Neon Purple" aria-label="Neon Purple theme"></button>
+<button type="button" class="theme-btn bg-emerald-500" data-set-theme="emerald" title="Matrix Emerald" aria-label="Matrix Emerald theme"></button>
+<button type="button" class="theme-btn bg-blue-500" data-set-theme="blue" title="Electric Blue" aria-label="Electric Blue theme"></button>
+</div>
+
+<button
+type="button"
+id="mobileMenuBtn"
+class="lg:hidden text-white text-xl p-2"
+aria-label="Open navigation menu"
+aria-expanded="false"
+aria-controls="mobileMenu">
+<i class="fa-solid fa-bars"></i>
+</button>
+
+<button type="button" id="openContactModal" class="bg-[var(--accent-color)] text-white border-2 border-[var(--accent-color)] px-5 py-2 hover:bg-white hover:text-black transition uppercase text-[11px] font-extrabold shadow-[4px_4px_0px_#fff]">
+Contact
+</button>
+</div>
+</div>
+</header>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" class="lg:hidden">
+<nav class="mono-text text-sm uppercase">
+
+<a href="index.html">Home</a>
+
+<details>
+<summary class="flex items-center justify-between">
+Services
+<i class="fa-solid fa-chevron-down text-[9px]"></i>
+</summary>
+<div>
+<a href="frontend.html">Frontend Development</a>
+<a href="responsive.html">Responsive Design</a>
+<a href="landing-pages.html">Landing Pages</a>
+<a href="e-commerce-websites.html">E Commerce Websites</a>
+</div>
+</details>
+
+<details>
+<summary class="flex items-center justify-between">
+Projects
+<i class="fa-solid fa-chevron-down text-[9px]"></i>
+</summary>
+<div>
+<a href="all-projects.html">All Projects</a>
+<a href="case-studies.html">Case Studies</a>
+</div>
+</details>
+
+<a href="skills.html">Skills</a>
+
+<div class="flex items-center gap-4 pt-4 border-t border-zinc-800">
+<span class="text-zinc-500 text-[10px]">THEME:</span>
+<button type="button" class="theme-btn bg-red-600" data-set-theme="red" title="Cyber Red"></button>
+<button type="button" class="theme-btn bg-purple-500" data-set-theme="purple" title="Neon Purple"></button>
+<button type="button" class="theme-btn bg-emerald-500" data-set-theme="emerald" title="Matrix Emerald"></button>
+<button type="button" class="theme-btn bg-blue-500" data-set-theme="blue" title="Electric Blue"></button>
+</div>
+</nav>
+</div>
+
+<!-- HERO -->
+<section class="pt-36 pb-16 px-6 max-w-7xl mx-auto text-center">
+
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-black border border-[var(--accent-color)] text-[var(--accent-color)] mono-text text-[10px] uppercase tracking-widest mb-4">
+<i class="fa-solid fa-code"></i>
+FRONTEND DEVELOPER &amp; TECHNICAL CONTENT CREATOR
+</div>
+
+<h1 class="font-['Syne'] text-5xl sm:text-7xl font-extrabold uppercase tracking-tight text-white mb-6">
+Crafting High-Performance
+<br>
+<span class="text-[var(--accent-color)]">Digital Web Experiences.</span>
+</h1>
+
+<p class="mono-text text-xs text-zinc-400 max-w-2xl mx-auto uppercase mb-12">
+Specializing in Vanilla JavaScript ecosystems, responsive mobile-first architectures, and structured technical documentation that scales your business.
+</p>
+
+<div class="flex justify-center gap-12 text-center mb-16">
+
+<div class="bg-[#08080c] border-2 border-[var(--accent-color)] px-8 py-4 shadow-[6px_6px_0px_var(--accent-color)]">
+<div class="font-['Syne'] text-3xl font-bold text-white">100%</div>
+<div class="mono-text text-[10px] text-[var(--accent-color)] uppercase mt-1">FINAL SCORE</div>
+</div>
+
+<div class="bg-[#08080c] border-2 border-[var(--accent-color)] px-8 py-4 shadow-[6px_6px_0px_var(--accent-color)]">
+<div class="font-['Syne'] text-3xl font-bold text-white">6 YRS</div>
+<div class="mono-text text-[10px] text-[var(--accent-color)] uppercase mt-1">EXPERIENCE</div>
+</div>
+
+</div>
+</section>
+
+<!-- INTERACTIVE PREVIEW -->
+<section id="interactive-preview" class="py-12 px-6 max-w-5xl mx-auto">
+
+<div class="bg-black border-2 border-[var(--accent-color)] p-6 shadow-[12px_12px_0px_var(--accent-color)]">
+
+<div class="flex flex-wrap justify-between items-center mono-text text-xs text-zinc-400 border-b border-[#222] pb-3 mb-4 gap-4">
+
+<span class="text-[var(--accent-color)] uppercase font-bold">
+// COMPONENT_MATRIX // INTERACTIVE PREVIEW
+</span>
+
+<div class="flex gap-2 flex-wrap">
+<button type="button" class="code-tab px-3 py-1 bg-[var(--accent-color)] text-white font-bold" data-target="codeApp">app.js</button>
+<button type="button" class="code-tab px-3 py-1 bg-[#111] text-zinc-400 hover:text-white" data-target="codeStyles">styles.css</button>
+<button type="button" class="code-tab px-3 py-1 bg-[#111] text-zinc-400 hover:text-white" data-target="codeReadme">readme.md</button>
+<a href="index.html">Home</a>
+</div>
+
+<div id="codeApp" class="code-content mono-text text-xs text-zinc-300 overflow-x-auto p-4 bg-[#08080c] border border-[#222] leading-relaxed">
+<code>// Initializing Vanilla JS Responsive Engine<br>const appState = { fps: 60, mode: 'mobile-first' };<br>document.addEventListener('DOMContentLoaded', () => initWorkspace());<br><br><span class="text-green-400">STATUS: COMPILATION SUCCESS</span></code>
+</div>
+
+<div id="codeStyles" class="code-content mono-text text-xs text-zinc-300 overflow-x-auto p-4 bg-[#08080c] border border-[#222] leading-relaxed hidden">
+<code>/* CSS Grid &amp; Fluid Architecture */<br>.workspace-grid { display: grid; gap: 1.5rem; }<br>backdrop-filter: blur(20px); border-color: rgba(255,51,51,0.3);<br><br><span class="text-green-400">STATUS: COMPILED, 0 ERRORS</span></code>
+</div>
+
+<div id="codeReadme" class="code-content mono-text text-xs text-zinc-300 overflow-x-auto p-4 bg-[#08080c] border border-[#222] leading-relaxed hidden">
+<code># NOVA333X Technical Documentation<br>- Workspace: Notion &amp; GitBook Synergy Guides<br>- Security: AES-256 Client-Side Token Encryption<br><br><span class="text-green-400">SECURE: 99+ SECURE</span></code>
+</div>
+
+</div>
+</section>
+
+<!-- CORE SERVICES -->
+<section id="core-services" class="py-20 px-6 max-w-7xl mx-auto border-t-2 border-[#222]">
+
+<div class="border-l-4 border-[var(--accent-color)] pl-6 mb-12">
+<span class="mono-text text-xs text-[var(--accent-color)] uppercase tracking-[0.3em] block mb-2">
+// CORE_SERVICES
+</span>
+
+<h2 class="font-['Syne'] text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-white">
+Engineering Digital <span class="text-[var(--accent-color)]">Solutions</span>
+</h2>
+
+<p class="mono-text text-xs text-zinc-400 mt-2 max-w-xl">
+Delivering robust, clean-coded interfaces and comprehensive technical guides tailored to your project requirements.
+</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+<div class="archival-card p-6" data-index="01 // ARCHIVE">
+<div class="text-[var(--accent-color)] text-2xl mb-4"><i class="fa-solid fa-code"></i></div>
+<h3 class="font-['Syne'] text-xl font-bold uppercase text-white mb-2">Frontend Development</h3>
+<p class="font-mono text-xs text-zinc-400 mb-4">Building responsive, lightning-fast web interfaces using HTML5, CSS Grid, Flexbox, and Vanilla ES6+ algorithms.</p>
+<div class="mono-text text-[10px] text-zinc-500 uppercase border-t border-[#222] pt-2">UI / UX ARCHITECTURE</div>
+</div>
+
+<div class="archival-card p-6" data-index="02 // ARCHIVE">
+<div class="text-[var(--accent-color)] text-2xl mb-4"><i class="fa-solid fa-file-lines"></i></div>
+<h3 class="font-['Syne'] text-xl font-bold uppercase text-white mb-2">Technical Content Creation</h3>
+<p class="font-mono text-xs text-zinc-400 mb-4">Producing structured system guides, Notion/GitBook documentation, and clear technical notes for developers.</p>
+<div class="mono-text text-[10px] text-zinc-500 uppercase border-t border-[#222] pt-2">DOCUMENTATION</div>
+</div>
+
+<div class="archival-card p-6" data-index="03 // ARCHIVE">
+<div class="text-[var(--accent-color)] text-2xl mb-4"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+<h3 class="font-['Syne'] text-xl font-bold uppercase text-white mb-2">Interactive Prototyping</h3>
+<p class="font-mono text-xs text-zinc-400 mb-4">Designing modern landing pages and dynamic web components using Figma, Canva, and cutting-edge AI prototyping tools.</p>
+<div class="mono-text text-[10px] text-zinc-500 uppercase border-t border-[#222] pt-2">FIGMA &amp; CANVA</div>
+</div>
+
+</div>
+</section>
+
+<!-- QUALITY GUARANTEES -->
+<section class="py-20 px-6 max-w-7xl mx-auto border-t-2 border-[#222]">
+
+<div class="text-center mb-12">
+<span class="mono-text text-xs text-[var(--accent-color)] uppercase tracking-widest">// QUALITY_GUARANTEES</span>
+
+<h2 class="font-['Syne'] text-4xl sm:text-5xl font-extrabold uppercase text-white mt-2">
+Uncompromising Standards
+</h2>
+
+<p class="mono-text text-xs text-zinc-400 max-w-xl mx-auto mt-2">
+Every line of code and digital asset adheres to top-tier performance, speed, and mobile responsiveness metrics.
+</p>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+<div class="archival-card p-6" data-index="RESPONSIVE">
+<div class="text-[var(--accent-color)] text-2xl mb-4"><i class="fa-solid fa-mobile-screen-button"></i></div>
+<h3 class="font-['Syne'] text-xl font-bold uppercase text-white mb-2">Mobile-First Layouts</h3>
+<p class="font-mono text-xs text-zinc-400 mb-4">Seamless responsiveness across mobile phones, tablets, and 4K desktop screens with zero layout shifts.</p>
+<div class="flex justify-between items-center mono-text text-[10px] text-zinc-500 border-t border-[#222] pt-2">
+<span>RESPONSIVE</span>
+<span class="text-white font-bold">60 FPS</span>
+</div>
+</div>
+
+<div class="archival-card p-6" data-index="PERFORMANCE">
+<div class="text-[var(--accent-color)] text-2xl mb-4"><i class="fa-solid fa-bolt"></i></div>
+<h3 class="font-['Syne'] text-xl font-bold uppercase text-white mb-2">Zero-Bloat Vanilla JS</h3>
+<p class="font-mono text-xs text-zinc-400 mb-4">Lightweight JavaScript engines ensuring instant load times and superior Google Lighthouse scores.</p>
+<div class="flex justify-between items-center mono-text text-[10px] text-zinc-500 border-t border-[#222] pt-2">
+<span>VANILLA ES6+</span>
+<span class="text-white font-bold">95+ SCORE</span>
+</div>
+</div>
+
+<div class="archival-card p-6" data-index="SECURITY">
+<div class="text-[var(--accent-color)] text-2xl mb-4"><i class="fa-solid fa-shield-halved"></i></div>
+<h3 class="font-['Syne'] text-xl font-bold uppercase text-white mb-2">Secure Client Vaults</h3>
+<p class="font-mono text-xs text-zinc-400 mb-4">Robust client-side validation and secure local storage architectures protecting sensitive user states.</p>
+<div class="flex justify-between items-center mono-text text-[10px] text-zinc-500 border-t border-[#222] pt-2">
+<span>SECURE</span>
+<span class="text-white font-bold">ENCRYPTED</span>
+</div>
+</div>
+
+</div>
+</section>
+
+<!-- WORKSPACE HUB -->
+<section id="workspace-hub" class="py-20 px-6 max-w-7xl mx-auto border-t-2 border-[#222]">
+
+<div class="border-l-4 border-[var(--accent-color)] pl-6 mb-12">
+<span class="mono-text text-xs text-[var(--accent-color)] uppercase tracking-[0.3em] block mb-2">// SKILLS &amp; METRICS</span>
+
+<h2 class="font-['Syne'] text-4xl sm:text-6xl font-extrabold uppercase tracking-tight text-white">
+Interactive Workspace <span class="text-[var(--accent-color)]">Hub</span>
+</h2>
+
+<p class="mono-text text-xs text-zinc-400 mt-2 max-w-xl">
+Explore technical proficiencies and system telemetry indicators in real time.
+</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+<div class="archival-card p-8" data-index="RENDER_GAUGE // ACTIVE">
+<h3 class="font-['Syne'] text-xl font-bold uppercase text-white mb-6">Performance Acceleration</h3>
+
+<div class="flex flex-col sm:flex-row items-center justify-around gap-6">
+
+<div class="relative w-36 h-36 flex items-center justify-center border-4 border-[var(--accent-color)] rounded-full shadow-[0_0_20px_var(--accent-glow)] shrink-0">
+<div class="text-center">
+<span class="font-['Syne'] text-2xl font-bold text-white">60 FPS</span>
+<span class="mono-text text-[9px] text-[var(--accent-color)] block">LOCKED</span>
+</div>
+</div>
+
+<div class="space-y-4 mono-text text-xs w-full max-w-sm">
+<div class="flex justify-between gap-4 border-b border-[#222] pb-2">
+<span class="text-zinc-400">RENDER LATENCY:</span>
+<span class="text-white font-bold">0.01ms</span>
+</div>
+
+<div class="flex justify-between gap-4 border-b border-[#222] pb-2">
+<span class="text-zinc-400">MEMORY ALLOC:</span>
+<span class="text-white font-bold">4.2 MB</span>
+</div>
+
+<div class="flex justify-between gap-4">
+<span class="text-zinc-400">STATE ENCRYPTION:</span>
+<span class="text-green-400 font-bold">ACTIVE</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="archival-card p-8" data-index="STACK_SUMMARY // SPECS">
+<h3 class="font-['Syne'] text-xl font-bold uppercase text-white mb-6">Core Technical Stack</h3>
+
+<div class="space-y-4 mono-text text-xs">
+
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-zinc-300">HTML5 &amp; CSS3 / Grid</span>
+<span class="text-[var(--accent-color)]">Advanced</span>
+</div>
+<div class="w-full bg-black h-2 border border-[#333]">
+<div class="bg-[var(--accent-color)] h-full" style="width: 95%;"></div>
+</div>
+</div>
+
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-zinc-300">Vanilla JavaScript (ES6+)</span>
+<span class="text-[var(--accent-color)]">Expert</span>
+</div>
+<div class="w-full bg-black h-2 border border-[#333]">
+<div class="bg-[var(--accent-color)] h-full" style="width: 98%;"></div>
+</div>
+</div>
+
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-zinc-300">Figma &amp; Canva Prototyping</span>
+<span class="text-[var(--accent-color)]">Proficient</span>
+</div>
+<div class="w-full bg-black h-2 border border-[#333]">
+<div class="bg-[var(--accent-color)] h-full" style="width: 88%;"></div>
+</div>
+</div>
+
+<div>
+<div class="flex justify-between mb-1">
+<span class="text-zinc-300">Notion &amp; GitBook Docs</span>
+<span class="text-[var(--accent-color)]">Master</span>
+</div>
+<div class="w-full bg-black h-2 border border-[#333]">
+<div class="bg-[var(--accent-color)] h-full" style="width: 100%;"></div>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section class="py-20 px-6 max-w-7xl mx-auto text-center border-t-2 border-[#222]">
+
+<div class="inline-block bg-[#08080c] border-2 border-[var(--accent-color)] p-12 shadow-[12px_12px_0px_var(--accent-color)] max-w-3xl mx-auto w-full">
+
+<span class="mono-text text-xs text-[var(--accent-color)] uppercase tracking-widest">// GET_IN_TOUCH</span>
+
+<h2 class="font-['Syne'] text-3xl sm:text-5xl font-extrabold uppercase text-white mt-2 mb-4">
+Ready to Build Something Exceptional?
+</h2>
+
+<p class="mono-text text-xs text-zinc-400 mb-8">
+Let's discuss your frontend development requirements or technical documentation project today.
+</p>
+
+<button type="button" id="openIntakeModal" class="bg-[var(--accent-color)] text-white px-8 py-4 font-bold uppercase tracking-widest hover:bg-white hover:text-black transition shadow-[4px_4px_0px_#fff]">
+Start Your Project Now <i class="fa-solid fa-arrow-right ml-2"></i>
+</button>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t-4 border-[#222] bg-[#0c0c0c] py-16 px-6">
+
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center text-xs mono-text text-zinc-400 gap-6">
+
+<div>
+<h4 class="font-['Syne'] text-lg font-bold text-white uppercase mb-1">
+NOVA333X<span class="text-[var(--accent-color)]">.</span>
+</h4>
+<p>Landing Pages &amp; Cinematic Matrix Studio.</p>
+</div>
+
+<div class="flex gap-6 font-bold">
+<a href="https://github.com/yusufiexweb" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-color)] transition">GITHUB</a>
+<a href="https://www.upwork.com" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-color)] transition">UPWORK</a>
+<a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--accent-color)] transition">LINKEDIN</a>
+</div>
+
+<div>
+&copy; 2026 NOVA333X. ALL RIGHTS RESERVED. Built with precision and care.
+</div>
+
+</div>
+</footer>
+
+<!-- PROJECT INTAKE MODAL -->
+<section id="intakeModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100001] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-300">
+
+<div class="bg-[#0c0c0c] border-4 border-[var(--accent-color)] w-full max-w-xl p-8 relative shadow-[12px_12px_0px_var(--accent-color)] my-auto max-h-[90vh] overflow-y-auto">
+
+<button type="button" id="closeIntakeModal" aria-label="Close project form" class="absolute top-4 right-4 w-8 h-8 bg-white text-black font-extrabold flex items-center justify-center hover:bg-[var(--accent-color)] hover:text-white transition">
+&times;
+</button>
+
+<div class="mb-6">
+<div class="mono-text text-[10px] text-[var(--accent-color)] uppercase tracking-widest">
+// SECURE_TRANSMISSION // PROJECT_INTAKE
+</div>
+
+<h3 class="font-['Syne'] text-2xl font-bold uppercase text-white mt-1">
+Initialize Project Telemetry
+</h3>
+
+<p class="text-xs text-zinc-400 font-mono mt-1">
+Provide your credentials and select your required engineering domain from the list.
+</p>
+</div>
+
+<form id="intakeForm" class="space-y-4 font-mono text-xs">
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div>
+<label class="text-zinc-400 uppercase block mb-1">First Name</label>
+<input type="text" required placeholder="e.g. Yusuf" class="w-full bg-black border-2 border-zinc-700 p-3 text-white focus:border-[var(--accent-color)] focus:outline-none">
+</div>
+
+<div>
+<label class="text-zinc-400 uppercase block mb-1">Last Name</label>
+<input type="text" required placeholder="e.g. Mammadov" class="w-full bg-black border-2 border-zinc-700 p-3 text-white focus:border-[var(--accent-color)] focus:outline-none">
+</div>
+</div>
+
+<div>
+<label class="text-zinc-400 uppercase block mb-1">Email Address</label>
+
+<div class="flex gap-2">
+<input type="email" id="emailInput" required placeholder="username@gmail.com" class="w-full bg-black border-2 border-zinc-700 p-3 text-white focus:border-[var(--accent-color)] focus:outline-none">
+
+<button type="button" id="fillAccountBtn" class="bg-[var(--accent-color)] text-white px-4 font-bold uppercase hover:bg-white hover:text-black transition">
+Accounts
+</button>
+</div>
+</div>
+
+<div>
+<label class="text-zinc-400 uppercase block mb-1">Select Engineering Domain</label>
+
+<select required class="w-full bg-black border-2 border-zinc-700 p-3 text-white focus:border-[var(--accent-color)] focus:outline-none">
+<option value="" disabled selected>Choose domain from list...</option>
+<option value="frontend">Frontend Development (Vanilla JS, HTML5, CSS Grid, Mobile-First)</option>
+<option value="docs">Technical Content &amp; Docs (Notion Workspace, GitBook &amp; System Guides)</option>
+<option value="uiux">UI/UX Prototyping (Figma, Canva &amp; Modern Web Layouts)</option>
+</select>
+</div>
+
+<div>
+<label class="text-zinc-400 uppercase block mb-1">Project Request &amp; Specifications</label>
+
+<textarea rows="4" required placeholder="Describe your project requirements, target goals, or architectural specs..." class="w-full bg-black border-2 border-zinc-700 p-3 text-white focus:border-[var(--accent-color)] focus:outline-none"></textarea>
+</div>
+
+<button type="submit" class="w-full bg-[var(--accent-color)] text-white p-4 font-bold uppercase tracking-widest hover:bg-white hover:text-black transition shadow-[4px_4px_0px_#fff]">
+Deploy Project Request <i class="fa-solid fa-rocket ml-2"></i>
+</button>
+
+</form>
+</div>
+</section>
+
+<!-- JAVASCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+// PRELOADER
+const preloader = document.getElementById("preloader");
+const preloaderCounter = document.getElementById("preloaderCounter");
+const preloaderBar = document.getElementById("preloaderBar");
+const preloaderStatus = document.getElementById("preloaderStatus");
+
+let percent = 0;
+const totalDuration = 1000;
+const intervalTime = 50;
+const increment = 100 / (totalDuration / intervalTime);
+
+const counterInterval = setInterval(function () {
+
+percent += increment;
+
+if (percent >= 100) {
+percent = 100;
+
+preloaderCounter.textContent = "100%";
+preloaderBar.style.width = "100%";
+preloaderStatus.textContent = "CINEMATIC SEQUENCE COMPLETE.";
+
+clearInterval(counterInterval);
+
+setTimeout(function () {
+preloader.style.opacity = "0";
+
+setTimeout(function () {
+preloader.style.display = "none";
+}, 700);
+
+}, 400);
+
+} else {
+const rounded = Math.floor(percent);
+
+preloaderCounter.textContent =
+(rounded < 10 ? "0" : "") + rounded + "%";
+
+preloaderBar.style.width = rounded + "%";
+
+if (rounded > 80) {
+preloaderStatus.textContent = "Eyes Glowing & Unveiling...";
+} else if (rounded > 45) {
+preloaderStatus.textContent = "Wildlife Video Flying In...";
+} else {
+preloaderStatus.textContent = "Cinematic Sequence Loading...";
+}
+}
+
+}, intervalTime);
+
+
+// CODE TABS
+const codeTabs = document.querySelectorAll(".code-tab");
+const codeContents = document.querySelectorAll(".code-content");
+
+codeTabs.forEach(function (tab) {
+
+tab.addEventListener("click", function () {
+
+codeTabs.forEach(function (item) {
+item.classList.remove(
+"bg-[var(--accent-color)]",
+"text-white",
+"font-bold"
+);
+
+item.classList.add(
+"bg-[#111]",
+"text-zinc-400"
+);
+});
+
+tab.classList.add(
+"bg-[var(--accent-color)]",
+"text-white",
+"font-bold"
+);
+
+tab.classList.remove(
+"bg-[#111]",
+"text-zinc-400"
+);
+
+codeContents.forEach(function (content) {
+content.classList.add("hidden");
+});
+
+const targetId = tab.getAttribute("data-target");
+const target = document.getElementById(targetId);
+
+if (target) {
+target.classList.remove("hidden");
+}
+
+});
+
+});
+
+
+// THEME SWITCHER
+const themeBtns = document.querySelectorAll("[data-set-theme]");
+
+themeBtns.forEach(function (btn) {
+
+btn.addEventListener("click", function () {
+const theme = btn.getAttribute("data-set-theme");
+document.documentElement.setAttribute("data-theme", theme);
+});
+
+});
+
+
+// MOBILE MENU
+const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+function closeMobileMenu() {
+if (!mobileMenu || !mobileMenuBtn) return;
+
+mobileMenu.classList.remove("active");
+mobileMenuBtn.setAttribute("aria-expanded", "false");
+mobileMenuBtn.setAttribute("aria-label", "Open navigation menu");
+mobileMenuBtn.innerHTML = '<i class="fa-solid fa-bars"></i>';
+}
+
+if (mobileMenuBtn && mobileMenu) {
+
+mobileMenuBtn.addEventListener("click", function () {
+
+const isOpen = mobileMenu.classList.toggle("active");
+
+mobileMenuBtn.setAttribute("aria-expanded", String(isOpen));
+
+mobileMenuBtn.setAttribute(
+"aria-label",
+isOpen ? "Close navigation menu" : "Open navigation menu"
+);
+
+mobileMenuBtn.innerHTML = isOpen
+? '<i class="fa-solid fa-xmark"></i>'
+: '<i class="fa-solid fa-bars"></i>';
+
+});
+
+mobileMenu.querySelectorAll("a").forEach(function (link) {
+link.addEventListener("click", closeMobileMenu);
+});
+
+document.addEventListener("click", function (event) {
+
+const clickedInsideMenu = mobileMenu.contains(event.target);
+const clickedButton = mobileMenuBtn.contains(event.target);
+
+if (!clickedInsideMenu && !clickedButton) {
+closeMobileMenu();
+}
+
+});
+
+}
+
+
+// MODAL
+const intakeModal = document.getElementById("intakeModal");
+const openIntakeModal = document.getElementById("openIntakeModal");
+const openContactModal = document.getElementById("openContactModal");
+const closeIntakeModal = document.getElementById("closeIntakeModal");
+
+function openModal() {
+intakeModal.classList.add("modal-active");
+document.body.style.overflow = "hidden";
+closeMobileMenu();
+}
+
+function closeModal() {
+intakeModal.classList.remove("modal-active");
+document.body.style.overflow = "";
+}
+
+if (openIntakeModal) {
+openIntakeModal.addEventListener("click", openModal);
+}
+
+if (openContactModal) {
+openContactModal.addEventListener("click", openModal);
+}
+
+if (closeIntakeModal) {
+closeIntakeModal.addEventListener("click", closeModal);
+}
+
+intakeModal.addEventListener("click", function (event) {
+if (event.target === intakeModal) {
+closeModal();
+}
+});
+
+document.addEventListener("keydown", function (event) {
+
+if (event.key === "Escape") {
+closeModal();
+closeMobileMenu();
+}
+
+});
+
+
+// QUICK EMAIL FILL
+const fillAccountBtn = document.getElementById("fillAccountBtn");
+const emailInput = document.getElementById("emailInput");
+
+if (fillAccountBtn && emailInput) {
+fillAccountBtn.addEventListener("click", function () {
+emailInput.value = "user@gmail.com";
+});
+}
+
+
+// FORM SUBMISSION
+const intakeForm = document.getElementById("intakeForm");
+
+if (intakeForm) {
+intakeForm.addEventListener("submit", function (event) {
+
+event.preventDefault();
+
+closeModal();
+
+this.reset();
+
+alert("Project telemetry successfully deployed!");
+
+});
+}
+
+});
+</script>
+
+</body>
+</html>
